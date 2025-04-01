@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Pop-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Style for the modal pop-up */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f8b400;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff7f00;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .modal-button:hover {
+            background-color: #e65100;
+        }
+
+        /* Completion message modal */
+        .completion-modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            width: 350px;
+            text-align: center;
+            color: white;
+        }
+
+        .completion-content p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Button to trigger the pop-up -->
+    <button onclick="startPopUps()" class="modal-button">Start the Romantic Journey</button>
+
+    <!-- The actual pop-up modal -->
+    <div id="popUp" class="modal">
+        <p id="questionText"></p>
+        <button class="modal-button" onclick="nextQuestion()">Yes</button>
+        <button class="modal-button" onclick="respondNo()">No</button>
+    </div>
+
+    <!-- Completion message modal -->
+    <div id="completionModal" class="completion-modal">
+        <div class="completion-content">
+            <p>You darling says: I love d my chlm kutty!</p>
+            <button class="modal-button" onclick="closeCompletionModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "Do you love me?",
+            "Unku yenna Dilip nu koopda thana pudikum?",
+            "Nan unna azhaga pathukuren thana?",
+            "Nee than yenna koduma panra?",
+            "Na paavom?"
+        ];
+
+        let currentQuestionIndex = 0; // Keep track of the current question
+
+        // Function to start the pop-up sequence
+        function startPopUps() {
+            document.getElementById("popUp").style.display = "block";
+            showQuestion();
+        }
+
+        // Function to display the current question
+        function showQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const questionText = document.getElementById("questionText");
+                questionText.textContent = questions[currentQuestionIndex];
+            } else {
+                showCompletionMessage(); // Once all questions are answered
+            }
+        }
+
+        // Function to handle the "Yes" response
+        function nextQuestion() {
+            currentQuestionIndex++; // Move to the next question
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(); // Show the next question
+            } else {
+                showCompletionMessage(); // Once all questions are answered, show completion
+                document.getElementById("popUp").style.display = "none"; // Hide the pop-up
+            }
+        }
+
+        // Function to handle the "No" response
+        function respondNo() {
+            document.getElementById("popUp").style.display = "none"; // Close the pop-up if "No" is pressed
+            alert("You didn't answer yes, try again!"); // Optionally, show a message if "No" is pressed
+        }
+
+        // Function to show the custom completion message
+        function showCompletionMessage() {
+            document.getElementById("completionModal").style.display = "block"; // Show the completion message
+        }
+
+        // Function to close the completion message
+        function closeCompletionModal() {
+            document.getElementById("completionModal").style.display = "none"; // Close the completion message
+        }
+    </script>
+
+</body>
+</html>
